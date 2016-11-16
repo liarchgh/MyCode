@@ -110,27 +110,25 @@ void yasuo() {
 		printf("%s ", HC[i]);
 	}
 	fclose(stdin);
-	freopen(in, "r", stdin);
-	char tree_out[num];
-	char * p = tree_out;
-	for (char c; ~scanf("%c", &c);) {
-		printf("%s", HC[c + 1]);
-	}
 	freopen(out[1], "w", stdout);
-	for(int i = 1; i <= m; ++i)
-		cout << HT[i];
+	for(int i = 1; i <= 2 * 256 + 1; ++i)
+		cout << HT[i].weight << HT[i].parent <<HT[i].lchild << HT[i].rchild;
 }
 
 void jieya() {
-	char in[200], out[200];
+	char in[200], out[200], o[2][200];
 	printf("请输入需要解压的文件的路径：\n");
 	scanf("%s", in);
 	printf("请输入解压文件的存放路径：\n");
 	scanf("%s", out);
+	printf("请输入哈夫曼树的存放路径：\n");
+	cin >> o[0];
+	printf("请输入压缩编码的存放路径：\n");
+	cin >> o[1];
 	printf("解压中......\n");
 	freopen(in, "r", stdin);
 	//cout << "kai" << endl;
-	// freopen(out, "w", stdout);
+	freopen(out, "w", stdout);
 	JyTree head(-1, NULL, NULL), * p;
 	for (int i = 0; i < 256; ++i) {
 		p = &head;
@@ -194,7 +192,9 @@ D:\\HufCode.txt
 D:\\HufTree.dat
 
 1
-D:\\out.txt
+D:\\CodeFile.dat
 D:\\in.txt
+D:\\HufCode.txt
+D:\\HufTree.dat
 
 */
