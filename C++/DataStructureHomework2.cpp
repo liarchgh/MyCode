@@ -8,7 +8,7 @@
 using namespace std;
 
 struct HTNode {
-	unsigned int weight, parent, lchild, rchild;
+	int weight, parent, lchild, rchild;
 	void ch(int w, int x, int y, int z) {
 		weight = w;
 		parent = x;
@@ -27,19 +27,17 @@ struct JyTree {
 	}
 };
 
-typedef char * * HuffmanCode;
-typedef HTNode * HuffmanTree;
-
-void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int * w, int n) {
+void HuffmanCoding(HTNode * &HT, char * * &HC, int * w, int n) {
 	if (n <= 1) {
 		return ;
 	}
 	int m = 2 * n + 1;
-	HT = (HuffmanTree)malloc((m + 1) * sizeof(HTNode));
+	HT = (HTNode *)malloc((m + 1) * sizeof(HTNode));//略去0位置
 	int i = 1;
-	HuffmanTree p = HT + 1;
+	HTNode * p = HT + 1;
 	for (; i <= n; ++i, ++p, ++w) (*p).ch(*w, 0, 0, 0);
-	for (; i <= m; ++i, ++p) (*(p)).ch(0, 0, 0, 0);
+	for (; i <= m; ++i, ++p) (*p).ch(0, 0, 0, 0);
+	// for (i = 1; i <= m; ++i) printf("---%c %d\n", i - 1, HT[i].weight);
 	for (i = n + 1; i <= m; ++i) {
 		int s1 = 0, s2 = 0;
 		for (int j = 1; j < i; ++j) {
@@ -50,13 +48,12 @@ void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int * w, int n) {
 					s1 = j;
 				}
 		}
-		if(!s2) break;
 		HT[s1].parent = HT[s2].parent = i;
 		HT[i].lchild = s1;
 		HT[i].rchild = s2;
 		HT[i].weight = HT[s1].weight + HT[s2].weight;
 	}
-	HC = (HuffmanCode)malloc((n + 1) * sizeof(char *));
+	HC = (char * *)malloc((n + 1) * sizeof(char *));//HC从下标1开始使用 HC[i]从下标0开始使用
 	char * cd = (char *)malloc(n * sizeof(char));
 	cd[n - 1] = '\0';
 	for (i = 1; i <= n; ++i) {
@@ -85,19 +82,18 @@ void yasuo() {
 		++w[c];
 		++num;
 	}
-	HuffmanTree HT;
-	HuffmanCode HC;
+	// for(int i = 0; i < 256; ++i) printf("%c %d\n", i, w[i]); getchar();
+	HTNode * HT;
+	char * * HC;
 	HuffmanCoding(HT, HC, w, 256);
 	//cout << 1 << endl;
 	freopen(out, "w", stdout);
 	for (int i = 1; i <= 256; ++i) {
-		printf("%s ", HC[i]);
+		printf("%s\n", HC[i]);
 	}
 	freopen(in, "r", stdin);
-	char tree_out[num];
-	char * p = tree_out;
 	for (char c; (c = getchar()) != EOF;) {
-		printf("%s", HC[c + 257]);
+		printf("%s", HC[c + 1]);
 	}
 	putchar(EOF);
 }
