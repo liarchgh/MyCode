@@ -30,18 +30,21 @@ struct JyTree {
 	}
 };
 
-void cut_way(char * p){
+void cut_way(char * p) {
 	char * st = p - 1;
-	while(*(p + 1) != '\0') ++p;
-	while(p != st && *p == '\\') *(p--) = '\0';
+	while (*(p + 1) != '\0') ++p;
+	while (p != st && *p == '\\') *(p--) = '\0';
 }
 
-void cat_way(char * p){
+void cat_way(char * p) {
 	cut_way(p);
 	int i = 2;
-	for(char * q = p + len_way * 3; q > p; q -= len_way, --i){
+	for (char * q = p + len_way * 3; q > p; q -= len_way, --i) {
 		strcpy(q, p);
-		strcat(q, huf_file[i]);
+		strcat(q, &huf_file[i][0]);
+		//puts(q);
+		// long long now = time(NULL);
+		// while(time(NULL) - now < 6) ;
 	}
 }
 
@@ -49,7 +52,7 @@ void HuffmanCoding(HTNode * &HT, char * * &HC, int * w, int n) {
 	if (n <= 1) {
 		return ;
 	}
-	int m = 2 * n + 1;
+	int m = 2 * n - 1;
 	HT = (HTNode *)malloc((m + 1) * sizeof(HTNode));//略去0位置
 	int i = 1;
 	HTNode * p = HT + 1;
@@ -120,17 +123,18 @@ void yasuo() {
 	HTNode * HT;
 	char * * HC;
 	HuffmanCoding(HT, HC, w, 256);
-	//cout << 1 << endl;
+	cout << 1 << endl;
 	freopen(out[1], "w", stdout);
-	printf("下标\t权值\t父母节点\t左子节点\t右子节点\n");
-	for(int i = 0; i < 2 * 256 + 1; ++i){
-		printf("%d\t%d\t%d\t%d\n", i, HT[i].weight, HT[i].parent, HT[i].lchild, HT[i].rchild);
+	// printf("下标\t权值\t父母节点\t左子节点\t右子节点\n");
+	for (int i = 0; i <= 2 * 256 - 1; ++i) {
+		printf("%d\t%d\t%d\t%d\t%d\n", i, HT[i].weight, HT[i].parent, HT[i].lchild, HT[i].rchild);
 	}
 	freopen(out[2], "w", stdout);
-	printf("ASCII码\t字符\t哈夫曼编码\n");
 	for (int i = 1; i <= 256; ++i) {
-		printf("%d\t%c\t%s\n", i - 1, i - 1, HC[i]);
+		printf("%s\n", HC[i]);
+		// printf("%d\t%c\t%s\n", i - 1, i - 1, HC[i]);
 	}
+	// printf("ASCII码\t字符\t哈夫曼编码\n");
 	freopen(in, "r", stdin);
 	freopen(out[3], "w", stdout);
 	// for(int i = 0; i <= 256 * 2 + 1; ++i){
@@ -152,42 +156,40 @@ void jieya() {
 	printf("解压中......\n");
 	cat_way((char *)in);
 	//cout << "kai" << endl;
-	freopen(in[2], "r", stdout);
-	JyTree head(-1, NULL, NULL), * p;
-	while(getchar() != '\t') ;while(getchar() != '\t') ;
+	freopen(in[2], "r", stdin);
+	// scanf("ASCII码\t字符\t哈夫曼编码\n");
+	JyTree head(-999, NULL, NULL), * p;
+	// while(getchar() != '\t') ;while(getchar() != '\t') ;
 	for (int i = 0; i < 256; ++i) {
 		p = &head;
+		// while (getchar() != '\t') ; getchar(); getchar();
 		for (char c; (c = getchar()) != '\n';) {
 			if (c == '1') {
 				if (p -> rchild == NULL) {
 					p -> rchild = (JyTree *)malloc(sizeof(JyTree));
 					p -> rchild-> lchild = p -> rchild-> rchild = NULL;
-					p -> rchild-> x = -1;
+					p -> rchild-> x = -999;
 				}
 				p = p -> rchild;
 			} else {
 				if (p -> lchild == NULL) {
 					p -> lchild = (JyTree *)malloc(sizeof(JyTree));
 					p -> lchild -> lchild = p -> lchild -> rchild = NULL;
-					p -> lchild -> x = -1;
+					p -> lchild -> x = -999;
 				}
 				p = p -> lchild;
-			}
-			if(getchar() != EOF){
-				while(getchar() != '\t') ;while(getchar() != '\t') ;
 			}
 		}
 		p -> x = i;
 	}
 	p = &head;
-	freopen(in[3], "r", stdout);
+	freopen(in[3], "r", stdin);
 	freopen(out, "w", stdout);
-	scanf("ASCII码\t字符\t哈夫曼编码\n");
 	for (char c; (c = getchar()) != EOF;) {
 		// cout << c << endl;
 		if (c == '0') p = p -> lchild;
 		else p = p -> rchild;
-		if (p -> x >= 0) {
+		if (p -> x != -999) {
 			putchar(p -> x);
 			p = &head;
 		}
@@ -217,15 +219,15 @@ int main() {
 
 /*
 0
-D:\\in.txt
-D:\\
+D:\in.txt
+D:\
 
 D:\\CodeFile.dat
 D:\\HufCode.txt
 D:\\HufTree.dat
 
 1
-D:\\
-D:\\in.txt
+D:\
+D:\out.txt
 
 */
