@@ -1,0 +1,27 @@
+
+#include <stdio.h>
+int main()
+{
+	int m, i, b = 0, c;
+	scanf("%d", &m);
+	getchar();
+	 char a[1000];
+	for (i = 0; i < m; i++)
+	{
+		gets(a);
+		while ((a[b - 1]!='\0' )||b==0)
+		{
+			for (; a[b] != ' ' && a[b] != '\0';)
+				b++;
+			b++;
+			c = b - 2;
+			for (; a[c] != ' '&&c>=0; c--)
+				printf("%c", a[c]);
+			if (a[b - 1] != '\0')
+				printf(" ");
+		}
+		printf("\n");
+		b = 0;
+	}
+	return 0;
+}

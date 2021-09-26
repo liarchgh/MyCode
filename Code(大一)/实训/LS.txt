@@ -1,0 +1,25 @@
+#include<cstring>
+#include<cstdio>
+int main()
+{
+    int i,a,n,t;
+    long long int ge;
+    scanf("%d%d",&n,&a);
+    ge=1;
+    for(i=0;i<n;++i)
+    {
+        ge*=2;
+    }
+    char point[ge];
+    memset(point,0,ge);
+    a=1;
+    for(i=1;i<n;++i)
+    {
+        point[a]=!point[a];
+        if(point[a]) a=2*a;
+        else a=2*a+1;
+        printf("%d\n",a);
+    }
+    printf("%d\n",a);
+    return 0;
+}

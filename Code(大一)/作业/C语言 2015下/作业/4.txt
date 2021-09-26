@@ -1,0 +1,13 @@
+#include<stdio.h>
+void main()
+{
+	int i,a,b,s,n,d,sn;
+	scanf("%d%d",&a,&n);
+	s=0;sn=a;
+	for(i=1;i<=n;i++)
+	{for(d=1;d<=i;d++)
+	{b=10*(d-1);
+	sn+=b*a;}
+	s+=sn;}
+	printf("%d",s);
+}

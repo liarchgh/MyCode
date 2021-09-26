@@ -1,0 +1,15 @@
+#include<stdio.h>
+int main()
+{
+	int x,y;
+	scanf("%d",&x);
+	if (x==0) y=0;
+	else{if (x%2==0) x++;
+	switch(x%2)
+	{
+	case -1:y=-1;break;
+	default:y=1;break;
+	}}
+	printf("%d\n",y);
+	return 0;
+}

@@ -1,0 +1,17 @@
+
+#include <stdio.h>
+int main()
+{
+	int i, n, k;
+	while (scanf("%d", &i)!=EOF)
+	{
+		k = 0;
+		int a[i];
+		for (n = 0; n < i; n++)
+			scanf("%d", &a[n]);
+		for (n = 0; n < i; n++)
+			k = k + a[n];
+		printf("%d\n", k);
+	}
+	return 0;
+}

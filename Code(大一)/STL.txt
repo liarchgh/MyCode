@@ -1,0 +1,171 @@
+///sstream
+#include<sstream>
+string s;
+stringstream ss;
+stringstream ss(s);
+ss.str(s);
+ss.clear();
+ss>>a>>b>>c;
+
+///string
+#include<string>
+string s,st[maxn],ss(sss);//char sss[N];
+s.c_str();//返回字符数组；
+string st = s.substr(now,len);//截取从now处开始长度为len的子字符串；
+st.assign(s,now,len);//功能同上
+getline(cin,s,'\n');
+
+///pair
+pair<int,int> tmp;
+tmp=make_pair<1,2>;
+tmp.first; tmp.second;
+
+///vector;
+#include<vector>
+vector<int>vs[n];
+vector<int>::iterator it;
+vs.front();  vs.back();   vs.push_back(x); vs.assign(begin,end);  vs.at(pos);
+vs.size();   vs.empty();  vs.capacity();
+vs.resize(num);  vs.reserve();
+vs.begin();  vs.end();
+vs.insert(it,x); vs.insert(it,n,x);   vs.insert(it,first,last);
+vs.pop_back();   vs.erase(it);    vs.erase(first,last);    vs.clear();
+vs.swap(v);
+//去重，unique删除begin到end之间的相邻重复元素后返回一个新的结尾的迭代器
+vs.erase(unique(s.begin(),s.end()),s.end())；
+
+///map,key—value关联式容器，可利用key值快速查找记录
+#include<map>
+map<int,string> mp;//int做key值字符串为value
+//string name; mp[name]+=123;
+multimap<int, string> mp;//允许重复
+map<string , int>::iterator it;//用指针处理
+m.insert();
+m.begin();  m.end();    m.find();
+m.clear();  m.erase();
+m.count();  m.empty();  m.size();
+m.swap();
+//返回一个非递减序列[first, last)中的第一个大于等于值val的位置的迭代期。
+lower_bound(first,last,val);
+//返回一个非递减序列[first, last)中第一个大于val的位置的迭代期。
+upper_bound(first,last,val);
+m.max_size();//返回可以容纳的最大元素个数
+
+///stack：
+#include<stack>
+stack<int>s;
+s.push(x);
+s.pop();
+s.top();
+s.empty();  e.size();
+
+///queue;
+#include<queue>
+queue<int>q;
+q.push(x);
+q.pop();
+q.front();  q.back();
+q.empty();  q.size();
+//优先队列，优先输出优先级高的队列项:
+struct node
+{
+    int x, y;
+    friend bool operator < (node a, node b)
+    {
+//        if(a.y==b.y)return a.x > b.x;//二维判断，按x降序
+        return a.y < b.y;//按y降序
+    }
+};
+priority_queue<node>q;//定义结构体
+struct mycmp
+{
+    bool operator()(const int &a,const int &b)
+    {
+        return a>b;//升序
+    }
+};
+priority_queue<int,vector<int>,mycmp> q;
+priority_queue<int,vector<int>,greater<int> > q;//数组升序优先队列
+priority_queue<int,vector<int>,less<int> > q;//数组降序优先队列
+q.top();//返回优先队列对顶元素
+
+///set,红黑树的平衡二叉检索树建立，用于快速检索
+#include<set>
+struct cmp
+{
+    bool operator()( const int &a, const int &b ) const
+    {   return a>b;  }//降序
+};
+set<int,cmp> st;
+set<int> s;//默认升序
+bool operator<(const node &a, const node &b)
+{   return a.y > b.y; }//降序
+struct node
+{
+    int x, y;
+    friend bool operator < (node a, node b)
+    {
+//        if(a.y==b.y)return a.x > b.x;//二维判断，按x降序
+        return a.y > b.y;//按y降序
+    }
+} t;
+set<node> st;
+multiset<int> st;//与set不同，允许相同元素
+multiset<int>::iterator it;//取指针
+it=st.begin();
+//如果是:st.erase(*it);删除元素的话，所有的相同元素都会被删除
+st.erase(it);   st.clear();
+st.begin(); st.end(); st.rbegin();
+st.insert();
+st.count(); st.empty(); st.size();  st.find();
+st.equal_range();//返回集合中与给定值相等的上下限的两个迭代器;
+st.swap();
+st.lower_bound();//返回指向(升序时)大于（或等于）某值的第一个元素的迭代器
+//结构体：it = st.lower_bound(tn); printf("%d\n",(*it).x);
+st.upper_bound();//返回大于某个值元素的迭代器
+
+///bitset
+#include<bitset>
+unsigned long u;    string str;
+bitset<N> bit;
+bitset<N> bit(u);
+bitset<N> bit(str);
+bitset<N> bit(str,pos);
+bitset<N> bit(str,pos,num);
+bit.set();  bit.set(pos);   bit.reset();    bit.reset(pos);
+bit.flip(); bit.flip(pos); //按位取反
+bit.size(); bit.count();//1的个数
+bit.any();  bit.none(); //有1，无1；return bool
+bit.test(pos) == bit[pos]; //pos处为1？
+u = bit.to_ulong();
+str = bit.to_string(); //str[n-i-i]==bit[i]
+
+///algorithm;
+#include<algorithm>
+sort(begin,end);//升序排列；
+bool cmp(int a,int b)
+{   return a>b; }//降序
+bool cmp(node a,node b)
+{
+//    if(a.y == b.y)return a.x > b.x;//降序
+	return a.y > b.y;//降序
+}
+struct node
+{
+    int x,y;
+    friend bool operator < (node a, node b)
+    {
+//        if(a.y==b.y)return a.x < b.x;//二维判断，降序
+        return a.y > b.y;//降序
+    }
+};
+sort(begin,end,cmp);
+sort(begin,end);//结构体中友元定义排序规则
+stable_sort(begin,end,cmp);//稳定排序
+//去除相邻的重复值(把重复的放到最后)，然后返回去重后的最后一个元素的地址；
+unique(begin,end);
+//在[begin,end)中查找val，返回第一个符合条件的元素的迭代器，否则返回end指针
+find(begin,end,val);
+//count，将返回从start到end 范围之内的序列中某个元素的数量。
+n = count(begin,end,val);
+next_permutation(begin,end);//返回该段序列的字典序下一种排列

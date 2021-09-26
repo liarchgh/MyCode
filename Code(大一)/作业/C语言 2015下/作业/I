@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main()
+{
+	int m, n, i, a, b;
+	scanf("%d", &m);
+	for (i = 0; i < m; i++)
+	{
+		scanf("%d %d",&a,&b);
+		for(n=0;n<b;n++)
+		{while(!((a%4==0 && a%100!=0)|| a%400==0))
+		a++;
+		a++;
+			}
+			a--;
+			printf("%d\n",a);
+		}
+		}
